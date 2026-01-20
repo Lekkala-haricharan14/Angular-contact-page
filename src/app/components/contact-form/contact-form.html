@@ -1,0 +1,155 @@
+<div class="form-container">
+  <div class="form-card">
+    <h2>{{ isEditMode ? 'Edit Contact' : 'Add New Contact' }}</h2>
+
+    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="employeeId">Employee ID *</label>
+          <input
+            id="employeeId"
+            type="number"
+            formControlName="employeeId"
+            class="input-field"
+            placeholder="Enter unique employee ID"
+            [readonly]="isEditMode"
+          />
+          <span class="error" *ngIf="contactForm.get('employeeId')?.invalid && contactForm.get('employeeId')?.touched">
+            <span *ngIf="contactForm.get('employeeId')?.errors?.['required']">Employee ID is required</span>
+            <span *ngIf="contactForm.get('employeeId')?.errors?.['min']">Employee ID must be at least 1</span>
+            <span *ngIf="contactForm.get('employeeId')?.errors?.['uniqueEmployeeId']">This Employee ID already exists</span>
+          </span>
+        </div>
+
+        <div class="form-group full-width">
+          <label for="name">Full Name *</label>
+          <input
+            id="name"
+            type="text"
+            formControlName="name"
+            class="input-field"
+            placeholder="John Doe"
+          />
+          <span class="error" *ngIf="contactForm.get('name')?.invalid && contactForm.get('name')?.touched">
+            Name is required
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number *</label>
+          <input
+            id="phone"
+            type="tel"
+            formControlName="phone"
+            class="input-field"
+            placeholder="+1234567890"
+          />
+          <span class="error" *ngIf="contactForm.get('phone')?.invalid && contactForm.get('phone')?.touched">
+            Phone number is required
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email *</label>
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            class="input-field"
+            placeholder="john@example.com"
+          />
+          <span class="error" *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched">
+            Valid email is required
+          </span>
+        </div>
+
+        <div class="form-group full-width">
+          <label for="photo">Photo URL *</label>
+          <input
+            id="photo"
+            type="url"
+            formControlName="photo"
+            class="input-field"
+            placeholder="https://example.com/photo.jpg"
+          />
+          <span class="error" *ngIf="contactForm.get('photo')?.invalid && contactForm.get('photo')?.touched">
+            Photo URL is required
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="instagram">Instagram Username</label>
+          <input
+            id="instagram"
+            type="text"
+            formControlName="instagram"
+            class="input-field"
+            placeholder="johndoe"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="linkedin">LinkedIn Profile</label>
+          <input
+            id="linkedin"
+            type="text"
+            formControlName="linkedin"
+            class="input-field"
+            placeholder="johndoe"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="whatsapp">WhatsApp Number</label>
+          <input
+            id="whatsapp"
+            type="tel"
+            formControlName="whatsapp"
+            class="input-field"
+            placeholder="+1234567890"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="company">Company</label>
+          <input
+            id="company"
+            type="text"
+            formControlName="company"
+            class="input-field"
+            placeholder="Acme Inc."
+          />
+        </div>
+
+        <div class="form-group full-width">
+          <label for="address">Address</label>
+          <input
+            id="address"
+            type="text"
+            formControlName="address"
+            class="input-field"
+            placeholder="123 Main St, City, Country"
+          />
+        </div>
+
+        <div class="form-group full-width">
+          <label for="notes">Notes</label>
+          <textarea
+            id="notes"
+            formControlName="notes"
+            rows="4"
+            class="input-field"
+            placeholder="Additional notes..."
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" (click)="cancel()" class="btn-cancel">Cancel</button>
+        <button type="submit" [disabled]="contactForm.invalid || loading" class="btn-submit">
+          {{ loading ? 'Saving...' : (isEditMode ? 'Update Contact' : 'Add Contact') }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
